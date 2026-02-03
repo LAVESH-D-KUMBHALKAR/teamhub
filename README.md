@@ -43,24 +43,6 @@ php -S localhost:8080 -t public/
 # 8. Open browser and go to:
 # http://localhost:8080
 ```
-
-## 📋 Alternative: Using Installation Script
-
-### Linux/Mac
-```bash
-# Make script executable
-chmod +x install.sh
-
-# Run installation
-./install.sh
-```
-
-### Windows (Using Git Bash or WSL)
-```bash
-# Run the batch script
-install.bat
-```
-
 ## 🐳 Docker Installation (Even Easier)
 
 ```bash
