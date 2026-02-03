@@ -36,13 +36,12 @@ class Team extends BaseController
         }
 
         $members = $this->teamModel->getMembers($id);
-
         $data = [
             'title' => $team['name'],
             'team' => $team,
             'members' => $members
         ];
         
-        return view('teams/show', $data);
+        return view('teams/show.php', $data);
     }
 }

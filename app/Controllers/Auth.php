@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class Auth extends BaseController
 {
     public function login()
@@ -10,7 +12,7 @@ class Auth extends BaseController
         if (session()->get('logged_in')) {
             return redirect()->to('/dashboard');
         }
-        
+
         return view('auth/login');
     }
 
@@ -20,44 +22,31 @@ class Auth extends BaseController
         if (session()->get('logged_in')) {
             return redirect()->to('/dashboard');
         }
-        
+
         return view('auth/register');
     }
 
     public function attemptLogin()
     {
+        $model = new UserModel();
+
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
-        // Call the API login endpoint
-        $client = \Config\Services::curlrequest();
-        
-        try {
-            $response = $client->post(base_url('api/login'), [
-                'json' => [
-                    'email' => $email,
-                    'password' => $password
-                ]
+        $user = $model->where('email', $email)->first();
+
+        if ($user && password_verify($password, $user['password'])) {
+            session()->set([
+                'user_id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'logged_in' => true
             ]);
 
-            $result = json_decode($response->getBody(), true);
-            
-            if ($result['status'] === 'success') {
-                // Set session
-                session()->set([
-                    'user_id' => $result['user']['id'],
-                    'name' => $result['user']['name'],
-                    'email' => $result['user']['email'],
-                    'logged_in' => true
-                ]);
-                
-                return redirect()->to('/dashboard');
-            } else {
-                return redirect()->back()->with('error', $result['message'] ?? 'Login failed');
-            }
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Login failed: ' . $e->getMessage());
+            return redirect()->to('/dashboard');
         }
+
+        return redirect()->back()->with('error', 'Invalid login');
     }
 
     public function attemptRegister()
@@ -70,14 +59,14 @@ class Auth extends BaseController
 
         // Call the API register endpoint
         $client = \Config\Services::curlrequest();
-        
+
         try {
             $response = $client->post(base_url('api/register'), [
                 'json' => $data
             ]);
 
             $result = json_decode($response->getBody(), true);
-            
+
             if ($result['status'] === 'success') {
                 // Auto-login after registration
                 return $this->attemptLogin();

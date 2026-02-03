@@ -10,6 +10,6 @@ class Dashboard extends BaseController
             'title' => 'Dashboard'
         ];
         
-        return view('dashboard', $data);
+        return view('layouts/dashboard', $data);
     }
 }

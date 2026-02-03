@@ -51,11 +51,11 @@
                                 <i class="bi bi-kanban"></i> Projects
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link text-white" href="/profile">
                                 <i class="bi bi-person-circle"></i> Profile
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                     
                     <div class="mt-4 px-3">

@@ -33,7 +33,7 @@
     <div class="container">
         <div class="login-card p-4">
             <div class="logo">TeamHub</div>
-            
+        
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger">
                     <?= session()->getFlashdata('error') ?>

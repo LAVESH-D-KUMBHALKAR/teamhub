@@ -34,10 +34,12 @@ class AuthController extends BaseController
 
     public function login()
     {
-        $userModel = new UserModel();
+        try {
+            $userModel = new UserModel();
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
+        
         $user = $userModel->where('email', $email)->first();
 
         if (!$user) {
@@ -77,6 +79,12 @@ class AuthController extends BaseController
                 'email' => $user['email']
             ]
         ]);
+            
+        }catch (\Exception $e) {
+            dd($e);
+            return $this->fail($e->getMessage());
+        }
+        
     }
 
     public function logout()
