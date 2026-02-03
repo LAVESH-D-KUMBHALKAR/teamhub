@@ -61,19 +61,7 @@ docker-compose up -d
 
 ### For Apache Users:
 1. Copy project to `htdocs` or web directory
-2. Enable mod_rewrite:
-```bash
-sudo a2enmod rewrite
-sudo systemctl restart apache2
-```
 
-### For Nginx Users:
-Add this to your site configuration:
-```nginx
-location / {
-    try_files $uri $uri/ /index.php$is_args$args;
-}
-```
 
 ## ✅ Verify Installation
 
