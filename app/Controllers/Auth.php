@@ -77,4 +77,10 @@ class Auth extends BaseController
             return redirect()->back()->with('error', 'Registration failed: ' . $e->getMessage());
         }
     }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/login');
+    }
 }

@@ -12,7 +12,7 @@ $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::attemptLogin');
 $routes->get('register', 'Auth::register');
 $routes->post('register', 'Auth::attemptRegister');
-$routes->get('logout', 'AuthController::logout');
+$routes->get('logout', 'Auth::logout');
 
 // Dashboard
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);

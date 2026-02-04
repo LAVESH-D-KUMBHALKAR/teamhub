@@ -58,7 +58,6 @@ class TeamController extends BaseController
     {
         $team = $this->teamModel->find($id);
         
-        dd($team);
         if (!$team) {
             return $this->failNotFound('Team not found');
         }

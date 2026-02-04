@@ -81,7 +81,6 @@ class AuthController extends BaseController
         ]);
             
         }catch (\Exception $e) {
-            dd($e);
             return $this->fail($e->getMessage());
         }
         
@@ -90,6 +89,6 @@ class AuthController extends BaseController
     public function logout()
     {
         session()->destroy();
-        return $this->respond(['status' => 'success', 'message' => 'Logged out']);
+        
     }
 }
